@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../utils/app_utils.dart';
+
 class ThirdPage extends StatelessWidget {
   const ThirdPage({Key? key}) : super(key: key);
 
@@ -15,25 +17,32 @@ class ThirdPage extends StatelessWidget {
           maxCrossAxisExtent:
               150, // max width of item irrespective of cross axis count
           itemCount: 60,
-          itemBuilder: (context, index) => buildImageCard(index),
+          itemBuilder: (context, index) => buildImageCard(index, context),
         ),
       );
 
-  Widget buildImageCard(int index) => Card(
-        color: Colors.white,
-        // margin: EdgeInsets.all(8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Container(
-          margin: EdgeInsets.all(4),
-          child: ClipRRect(
-              // clip the image to a circle
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://source.unsplash.com/random?sig=$index',
-                fit: BoxFit.cover,
-              )),
+  Widget buildImageCard(int index, BuildContext context) => InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () {
+          AppUtils.openFull(
+              context, 'https://source.unsplash.com/random?sig=$index');
+        },
+        child: Card(
+          color: Colors.white,
+          // margin: EdgeInsets.all(8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            margin: EdgeInsets.all(4),
+            child: ClipRRect(
+                // clip the image to a circle
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://source.unsplash.com/random?sig=$index',
+                  fit: BoxFit.cover,
+                )),
+          ),
         ),
       );
 }
